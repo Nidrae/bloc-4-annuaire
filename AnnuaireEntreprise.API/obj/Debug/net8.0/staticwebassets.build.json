@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "0eMAhkrAcy3KFPuywhLomNweYwxHwwFjvbf8LvVifYg=",
+  "Source": "AnnuaireEntreprise.API",
+  "BasePath": "_content/AnnuaireEntreprise.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
