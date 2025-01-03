@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AnnuaireEntreprise.MAUI.Views.EmployeeDetailsPage"
+             Title="Fiche du salarié">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+            <Label Text="Fiche Salarié" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+
+            <Label Text="Nom :" FontAttributes="Bold" />
+            <Label Text="{Binding Employee.Nom}" />
+
+            <Label Text="Prénom :" FontAttributes="Bold" />
+            <Label Text="{Binding Employee.Prenom}" />
+
+            <Label Text="Téléphone fixe :" FontAttributes="Bold" />
+            <Label Text="{Binding Employee.TelFixe}" />
+
+            <Label Text="Téléphone portable :" FontAttributes="Bold" />
+            <Label Text="{Binding Employee.TelPortable}" />
+
+            <Label Text="Email :" FontAttributes="Bold" />
+            <Label Text="{Binding Employee.Email}" />
+
+            <Label Text="Service :" FontAttributes="Bold" />
+            <Label Text="{Binding Employee.Service.Nom}" />
+
+            <Label Text="Site :" FontAttributes="Bold" />
+            <Label Text="{Binding Employee.Site.Ville}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

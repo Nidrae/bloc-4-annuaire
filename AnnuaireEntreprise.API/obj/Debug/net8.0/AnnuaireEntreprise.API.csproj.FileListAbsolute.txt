@@ -115,3 +115,4 @@ W:\Visual Studio Project\bloc 4 annuaire\bloc-4-annuaire\AnnuaireEntreprise.API\
 W:\Visual Studio Project\bloc 4 annuaire\bloc-4-annuaire\AnnuaireEntreprise.API\obj\Debug\net8.0\AnnuaireEntreprise.API.pdb
 W:\Visual Studio Project\bloc 4 annuaire\bloc-4-annuaire\AnnuaireEntreprise.API\obj\Debug\net8.0\AnnuaireEntreprise.API.genruntimeconfig.cache
 W:\Visual Studio Project\bloc 4 annuaire\bloc-4-annuaire\AnnuaireEntreprise.API\obj\Debug\net8.0\ref\AnnuaireEntreprise.API.dll
+W:\Visual Studio Project\bloc 4 annuaire\bloc-4-annuaire\AnnuaireEntreprise.API\obj\Debug\net8.0\AnnuaireEntreprise.API.sourcelink.json

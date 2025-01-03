@@ -1,0 +1,28 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AnnuaireEntreprise.MAUI.MainPage"
+             Title="Accueil">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="15"
+            HorizontalOptions="Center">
+            
+            <Label
+                Text="Bienvenue dans l'annuaire d'entreprise"
+                FontSize="24"
+                HorizontalOptions="Center" />
+
+            <Button
+                Text="Rechercher un salarié"
+                Clicked="OnSearchButtonClicked"
+                HorizontalOptions="FillAndExpand" />
+
+            <Button
+                Text="Gestion des données"
+                Clicked="OnAdminButtonClicked"
+                HorizontalOptions="FillAndExpand" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,61 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AnnuaireEntreprise.MAUI.Views.SearchPage"
+             Title="Rechercher un salarié">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Entry
+                Placeholder="Rechercher par nom"
+                x:Name="SearchEntry"
+                TextChanged="OnSearchTextChanged" />
+
+            <Picker
+                Title="Filtrer par site"
+                x:Name="SitePicker"
+                SelectedIndexChanged="OnSiteSelected" />
+
+            <Picker
+                Title="Filtrer par service"
+                x:Name="ServicePicker"
+                SelectedIndexChanged="OnServiceSelected" />
+
+            <CollectionView x:Name="EmployeeList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="0,5">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <!-- Bloc Nom et Service -->
+                                <HorizontalStackLayout Grid.Column="0" Spacing="10">
+                                    <!-- Nom de l'employé -->
+                                    <Label
+                                        Text="{Binding Nom}"
+                                        FontSize="18"
+                                        VerticalOptions="Center"
+                                        LineBreakMode="TailTruncation" />
+
+                                    <!-- Nom du service -->
+                                    <Label
+                                        Text="{Binding Service.Nom}"
+                                        FontSize="14"
+                                        VerticalOptions="Center"
+                                        TextColor="Gray"
+                                        LineBreakMode="TailTruncation" />
+                                </HorizontalStackLayout>
+
+                                <!-- Bouton Détails -->
+                                <Button
+                                    Text="Détails"
+                                    Clicked="OnDetailsButtonClicked"
+                                    CommandParameter="{Binding}"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"
+                                    Grid.Column="1" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
