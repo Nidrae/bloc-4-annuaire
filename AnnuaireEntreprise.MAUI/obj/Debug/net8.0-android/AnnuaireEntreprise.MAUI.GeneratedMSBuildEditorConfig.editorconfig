@@ -41,6 +41,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = AnnuaireEntreprise.MAUI.Re
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
 
+[W:/Visual Studio Project/bloc 4 annuaire/bloc-4-annuaire/AnnuaireEntreprise.MAUI/Views/Admin/AdminDashboardPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AnnuaireEntreprise.MAUI.Views.Admin.AdminDashboardPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Admin\AdminDashboardPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Admin\AdminDashboardPage.xaml
+
 [W:/Visual Studio Project/bloc 4 annuaire/bloc-4-annuaire/AnnuaireEntreprise.MAUI/Views/Admin/EmployeesPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = AnnuaireEntreprise.MAUI.Views.Admin.EmployeesPage.xaml
