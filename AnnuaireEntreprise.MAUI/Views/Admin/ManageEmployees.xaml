@@ -1,0 +1,94 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AnnuaireEntreprise.MAUI.Views.Admin.ManageEmployeesPage"
+             Title="Gérer les salariés">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Recherche par nom -->
+            <Entry
+                Placeholder="Rechercher par nom"
+                x:Name="SearchEntry"
+                TextChanged="OnSearchTextChanged" />
+
+            <!-- Filtrer par site -->
+            <Picker
+                Title="Filtrer par site"
+                x:Name="SitePicker"
+                SelectedIndexChanged="OnSiteSelected" />
+
+            <!-- Filtrer par service -->
+            <Picker
+                Title="Filtrer par service"
+                x:Name="ServicePicker"
+                SelectedIndexChanged="OnServiceSelected" />
+
+            <!-- Liste des employés -->
+            <CollectionView x:Name="EmployeeList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="0,5">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <!-- Bloc Nom, Service et Site -->
+                                <HorizontalStackLayout Grid.Column="0" Spacing="10">
+                                    <!-- Nom de l'employé -->
+                                    <Label
+                                        Text="{Binding Nom}"
+                                        FontSize="18"
+                                        VerticalOptions="Center"
+                                        LineBreakMode="TailTruncation" />
+
+                                    <!-- Nom du service -->
+                                    <Label
+                                        Text="{Binding Service.Nom}"
+                                        FontSize="14"
+                                        VerticalOptions="Center"
+                                        TextColor="Gray"
+                                        LineBreakMode="TailTruncation" />
+
+                                    <!-- Nom du site -->
+                                    <Label
+                                        Text="{Binding Site.Ville}"
+                                        FontSize="14"
+                                        VerticalOptions="Center"
+                                        TextColor="Blue"
+                                        LineBreakMode="TailTruncation" />
+                                </HorizontalStackLayout>
+
+                                <!-- Boutons Modifier et Supprimer -->
+                                <HorizontalStackLayout Grid.Column="1" Spacing="5">
+    <Button
+        Text="Modif"
+        Clicked="OnEditEmployeeClicked"
+        CommandParameter="{Binding}"
+        VerticalOptions="Center"
+        WidthRequest="65"
+        HeightRequest="40"
+        FontSize="12" />
+
+    <Button
+        Text="Supr"
+        Clicked="OnDeleteEmployeeClicked"
+        CommandParameter="{Binding}"
+        VerticalOptions="Center"
+        WidthRequest="65"
+        HeightRequest="40"
+        FontSize="12" />
+</HorizontalStackLayout>
+
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Bouton Ajouter -->
+            <Button
+                Text="Ajouter un salarié"
+                Clicked="OnAddEmployeeClicked"
+                HorizontalOptions="FillAndExpand" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

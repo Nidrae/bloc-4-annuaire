@@ -20,27 +20,24 @@ private async void OnSearchButtonClicked(object sender, EventArgs e)
     await Navigation.PushAsync(new Views.SearchPage());
 }
 
-private async void OnAdminButtonClicked(object sender, EventArgs e)
-{
-    await Navigation.PushAsync(new Views.Admin.SitesPage());
-}
+
 
  // Gestion des clics sur l'image
 private int _adminClickCount = 0; // Compteur de clics
 
-private void OnImageTapped(object sender, EventArgs e)
-{
-    _adminClickCount++;
-    if (_adminClickCount == 10)
+    private void OnImageTapped(object sender, EventArgs e)
     {
-        PasswordEntry.IsVisible = true;
-        _adminClickCount = 0; // Réinitialiser le compteur
+        _adminClickCount++;
+
+        if (_adminClickCount == 10)
+        {
+            PasswordEntry.IsVisible = true;
+            ValidateButton.IsVisible = true;
+            _adminClickCount = 0; // Réinitialiser le compteur après 10 clics
+        }
     }
-}
 
-
-    // Vérification du mot de passe saisi
-    private async void OnPasswordEntered(object sender, EventArgs e)
+    private async void OnValidateButtonClicked(object sender, EventArgs e)
     {
         if (PasswordEntry.Text == "admbloc4")
         {
@@ -51,5 +48,7 @@ private void OnImageTapped(object sender, EventArgs e)
             await DisplayAlert("Erreur", "Mot de passe incorrect", "OK");
         }
     }
+
+    
 }
 

@@ -10,18 +10,24 @@ public partial class AdminDashboardPage : ContentPage
         InitializeComponent();
     }
 
-    private async void OnManageSitesClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new SitesPage());
-    }
-
-    private async void OnManageServicesClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new ServicesPage());
-    }
-
-    private async void OnManageEmployeesClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new EmployeesPage());
-    }
+private async void OnManageSitesClicked(object sender, EventArgs e)
+{
+    await Navigation.PushAsync(new ManageSitesPage());
 }
+
+private async void OnManageServicesClicked(object sender, EventArgs e)
+{
+    await Navigation.PushAsync(new ManageServicesPage());
+}
+
+private async void OnManageEmployeesClicked(object sender, EventArgs e)
+{
+    await Navigation.PushAsync(new ManageEmployeesPage());
+}
+
+private async void OnBackToHomeClicked(object sender, EventArgs e)
+{
+    await Navigation.PopToRootAsync();
+}
+
+ }

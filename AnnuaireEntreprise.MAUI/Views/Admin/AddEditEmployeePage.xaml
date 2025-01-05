@@ -1,0 +1,40 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AnnuaireEntreprise.MAUI.Views.Admin.AddEditEmployeePage"
+             Title="Ajouter/Modifier un salarié">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Nom :" />
+            <Entry x:Name="NameEntry" Placeholder="Nom" />
+
+            <Label Text="Prénom :" />
+            <Entry x:Name="FirstNameEntry" Placeholder="Prénom" />
+
+            <Label Text="Téléphone fixe :" />
+            <Entry x:Name="PhoneEntry" Placeholder="Téléphone fixe" Keyboard="Telephone" />
+
+            <Label Text="Téléphone portable :" />
+            <Entry x:Name="MobilePhoneEntry" Placeholder="Téléphone portable" Keyboard="Telephone" />
+
+            <Label Text="Email :" />
+            <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" />
+
+<Picker
+    x:Name="ServicePicker"
+    Title="Sélectionnez un service"
+    ItemDisplayBinding="{Binding Nom}" />
+
+<Picker
+    x:Name="SitePicker"
+    Title="Sélectionnez un site"
+    ItemDisplayBinding="{Binding Ville}" />
+
+
+
+            <Button Text="Enregistrer" Clicked="OnSaveClicked" />
+            <Button Text="Annuler" Clicked="OnCancelClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

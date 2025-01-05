@@ -35,22 +35,32 @@ public class SalariesController : ControllerBase
                                     .Include(s => s.Service)
                                     .FirstOrDefaultAsync(s => s.Id == id);
 
-        if (salarie == null)
-        {
-            return NotFound(new { Message = $"Le salarié avec l'ID {id} n'existe pas." });
-        }
 
         return salarie;
     }
 
     // POST: api/Salaries
-    [HttpPost]
-    public async Task<ActionResult<Salarie>> CreateSalarie(Salarie salarie)
+// POST: api/Salaries
+[HttpPost]
+public async Task<ActionResult<Salarie>> CreateSalarie(Salarie salarie)
+{
+    // Forcer l'ID à 0 pour permettre à la base de données de gérer l'auto-incrémentation
+    salarie.Id = 0;
+
+    _context.Salaries.Add(salarie);
+
+    try
     {
-        _context.Salaries.Add(salarie);
         await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetSalarie), new { id = salarie.Id }, salarie);
     }
+    catch (Exception ex)
+    {
+        return BadRequest(new { Message = $"Erreur lors de l'enregistrement : {ex.Message}" });
+    }
+
+    return CreatedAtAction(nameof(GetSalarie), new { id = salarie.Id }, salarie);
+}
+
 
     // PUT: api/Salaries/{id}
     [HttpPut("{id}")]
@@ -110,10 +120,7 @@ public async Task<ActionResult<IEnumerable<Salarie>>> SearchByName([FromQuery] s
                                 .Where(s => s.Nom.Contains(name))
                                 .ToListAsync();
 
-    if (!results.Any())
-    {
-        return NotFound(new { Message = $"Aucun salarié trouvé pour le nom contenant '{name}'." });
-    }
+
 
     return Ok(results);
 }

@@ -3,34 +3,35 @@
              x:Class="AnnuaireEntreprise.MAUI.MainPage"
              Title="Accueil">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="20"
-            Spacing="15"
-            HorizontalOptions="Center">
-            
-            <Label
-                Text="Bienvenue dans l'annuaire d'entreprise"
-                FontSize="24"
-                HorizontalOptions="Center" />
+    <AbsoluteLayout>
+        <!-- Contenu principal centré -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <VerticalStackLayout
+                Padding="20"
+                Spacing="15"
+                HorizontalOptions="Center">
+                
+                <Label
+                    Text="Bienvenue dans l'annuaire d'entreprise"
+                    FontSize="24"
+                    HorizontalOptions="Center" />
 
-            <Button
-                Text="Rechercher un salarié"
-                Clicked="OnSearchButtonClicked"
-                HorizontalOptions="FillAndExpand" />
+                <Button
+                    Text="Rechercher un salarié"
+                    Clicked="OnSearchButtonClicked"
+                    HorizontalOptions="FillAndExpand" />
 
-            <Button
-                Text="Gestion des données"
-                Clicked="OnAdminButtonClicked"
-                HorizontalOptions="FillAndExpand" />
-                            <!-- Image clickable -->
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Image clickable en bas à gauche -->
         <Image
             x:Name="AdminTriggerImage"
             Source="dotnet_bot.png"
             HeightRequest="50"
             WidthRequest="50"
-            VerticalOptions="End"
-            HorizontalOptions="Start"
+            AbsoluteLayout.LayoutBounds="0,1,50,50"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
             Margin="10"
             SemanticProperties.Description="Cliquez 10 fois pour accéder à l'administration">
             <Image.GestureRecognizers>
@@ -38,14 +39,22 @@
             </Image.GestureRecognizers>
         </Image>
 
+        <!-- Entry pour le mot de passe, visible seulement après 10 clics -->
+        <Entry
+            x:Name="PasswordEntry"
+            Placeholder="Mot de passe"
+            IsPassword="True"
+            IsVisible="False"
+            AbsoluteLayout.LayoutBounds="0.5,0.8,300,50"
+            AbsoluteLayout.LayoutFlags="PositionProportional" />
 
-            <!-- Entry pour le mot de passe, visible seulement après 10 clics -->
-            <Entry
-                x:Name="PasswordEntry"
-                Placeholder="Mot de passe"
-                IsPassword="True"
-                IsVisible="False"
-                Completed="OnPasswordEntered" />
-        </VerticalStackLayout>
-    </ScrollView>
+        <!-- Bouton de validation, visible seulement après 10 clics -->
+        <Button
+            x:Name="ValidateButton"
+            Text="Valider"
+            IsVisible="False"
+            AbsoluteLayout.LayoutBounds="0.5,0.9,200,50"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Clicked="OnValidateButtonClicked" />
+    </AbsoluteLayout>
 </ContentPage>

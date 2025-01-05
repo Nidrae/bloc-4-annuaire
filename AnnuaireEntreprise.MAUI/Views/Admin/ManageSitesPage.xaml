@@ -1,0 +1,24 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AnnuaireEntreprise.MAUI.Views.Admin.ManageSitesPage"
+             Title="Gestion des Sites">
+    <StackLayout Padding="10">
+        <Button Text="Ajouter un Site" Clicked="OnAddSiteClicked" />
+        <CollectionView x:Name="SitesList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="5" ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto">
+                        <!-- Nom du Site -->
+                        <Label Grid.Column="0" Text="{Binding Ville}" VerticalOptions="Center" HorizontalOptions="Start" />
+
+                        <!-- Bouton Modifier -->
+                        <Button Grid.Column="1" Text="Modifier" Clicked="OnEditSiteClicked" />
+
+                        <!-- Bouton Supprimer -->
+                        <Button Grid.Column="2" Text="Supprimer" Clicked="OnDeleteSiteClicked" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

@@ -4,11 +4,12 @@
              Title="Administration">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Interface Administrateur" FontSize="20" HorizontalOptions="Center" />
-            <Button Text="Gérer les Sites" Clicked="OnManageSitesClicked" />
-            <Button Text="Gérer les Services" Clicked="OnManageServicesClicked" />
-            <Button Text="Gérer les Salariés" Clicked="OnManageEmployeesClicked" />
-        </VerticalStackLayout>
+<VerticalStackLayout Padding="20" Spacing="15">
+    <Button Text="Gérer les Sites" Clicked="OnManageSitesClicked" />
+    <Button Text="Gérer les Services" Clicked="OnManageServicesClicked" />
+    <Button Text="Gérer les Salariés" Clicked="OnManageEmployeesClicked" />
+    <Button Text="Retour à l'accueil" Clicked="OnBackToHomeClicked" />
+</VerticalStackLayout>
+
     </ScrollView>
 </ContentPage>
