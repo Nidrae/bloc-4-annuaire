@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BE62y83mkmQ=",
+  "dgSpecHash": "GiTSJNUE2kg=",
   "success": true,
-  "projectFilePath": "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.API\\AnnuaireEntreprise.API.csproj",
+  "projectFilePath": "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.API\\AnnuaireEntreprise.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\trigu\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\trigu\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.8\\microsoft.aspnetcore.openapi.8.0.8.nupkg.sha512",

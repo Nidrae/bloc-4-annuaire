@@ -14,26 +14,19 @@ public partial class ManageSitesPage : ContentPage
         _httpClient = new HttpClient { BaseAddress = new Uri("http://172.20.64.1:5195/api/") };
         LoadData();
     }
-
-    private async void LoadData()
+private async void LoadData()
+{
+    try
     {
-        if (isRequestInProgress) return;
-        isRequestInProgress = true;
-
-        try
-        {
-            var sites = await _httpClient.GetFromJsonAsync<List<Site>>("Sites");
-            SitesList.ItemsSource = sites;
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Erreur", $"Impossible de charger les sites : {ex.Message}", "OK");
-        }
-        finally
-        {
-            isRequestInProgress = false;
-        }
+        var sites = await _httpClient.GetFromJsonAsync<List<Site>>("Sites");
+        SitesList.ItemsSource = sites;
     }
+    catch (Exception ex)
+    {
+        await DisplayAlert("Erreur", $"Impossible de charger les données : {ex.Message}", "OK");
+    }
+}
+
 
     private async void OnAddSiteClicked(object sender, EventArgs e)
     {
@@ -60,15 +53,23 @@ public partial class ManageSitesPage : ContentPage
         }
     }
 
-    private async void OnDeleteSiteClicked(object sender, EventArgs e)
+private async void OnDeleteSiteClicked(object sender, EventArgs e)
+{
+    if (sender is Button button && button.BindingContext is Site site)
     {
-        if (sender is Button button && button.BindingContext is Site selectedSite)
+        if (site.IsLinkedToEmployees)
         {
-            if (await DisplayAlert("Confirmation", $"Supprimer le site {selectedSite.Ville} ?", "Oui", "Non"))
-            {
-                await _httpClient.DeleteAsync($"Sites/{selectedSite.Id}");
-                LoadData();
-            }
+            await DisplayAlert("Action impossible", "Ce site est lié à des salariés et ne peut pas être supprimé.", "OK");
+        }
+        else if (await DisplayAlert("Confirmation", $"Supprimer le site {site.Ville} ?", "Oui", "Non"))
+        {
+            await _httpClient.DeleteAsync($"Sites/{site.Id}");
+            LoadData();
         }
     }
 }
+
+    
+}
+
+

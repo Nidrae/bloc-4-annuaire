@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\AnnuaireEntreprise.MAUI.csproj": {}
+    "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\AnnuaireEntreprise.MAUI.csproj": {}
   },
   "projects": {
-    "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\AnnuaireEntreprise.MAUI.csproj": {
+    "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\AnnuaireEntreprise.MAUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\AnnuaireEntreprise.MAUI.csproj",
+        "projectUniqueName": "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\AnnuaireEntreprise.MAUI.csproj",
         "projectName": "AnnuaireEntreprise.MAUI",
-        "projectPath": "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\AnnuaireEntreprise.MAUI.csproj",
+        "projectPath": "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\AnnuaireEntreprise.MAUI.csproj",
         "packagesPath": "C:\\Users\\trigu\\.nuget\\packages\\",
-        "outputPath": "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\obj\\",
+        "outputPath": "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [

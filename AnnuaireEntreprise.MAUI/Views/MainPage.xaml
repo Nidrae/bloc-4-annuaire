@@ -4,25 +4,26 @@
              Title="Accueil">
 
     <AbsoluteLayout>
-        <!-- Contenu principal centré -->
-        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <VerticalStackLayout
-                Padding="20"
-                Spacing="15"
-                HorizontalOptions="Center">
-                
-                <Label
-                    Text="Bienvenue dans l'annuaire d'entreprise"
-                    FontSize="24"
-                    HorizontalOptions="Center" />
+        <!-- Contenu principal aligné en haut -->
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="15"
+            AbsoluteLayout.LayoutBounds="0.5,0,1,-1"
+            AbsoluteLayout.LayoutFlags="WidthProportional"
+            HorizontalOptions="Center"
+            VerticalOptions="Start">
 
-                <Button
-                    Text="Rechercher un salarié"
-                    Clicked="OnSearchButtonClicked"
-                    HorizontalOptions="FillAndExpand" />
+            <Label
+                Text="Bienvenue dans l'annuaire d'entreprise"
+                FontSize="24"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center" />
 
-            </VerticalStackLayout>
-        </ScrollView>
+            <Button
+                Text="Rechercher un salarié"
+                Clicked="OnSearchButtonClicked"
+                HorizontalOptions="FillAndExpand" />
+        </VerticalStackLayout>
 
         <!-- Image clickable en bas à gauche -->
         <Image

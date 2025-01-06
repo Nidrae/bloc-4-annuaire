@@ -17,11 +17,22 @@ public class SitesController : ControllerBase
     }
 
     // GET: api/Sites
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Site>>> GetSites()
-    {
-        return await _context.Sites.ToListAsync();
-    }
+[HttpGet]
+public async Task<ActionResult<IEnumerable<Site>>> GetSites()
+{
+    var sites = await _context.Sites
+        .Select(site => new Site
+        {
+            Id = site.Id,
+            Ville = site.Ville,
+            IsLinkedToEmployees = _context.Salaries.Any(emp => emp.SiteId == site.Id) // Calcul dynamique
+        })
+        .ToListAsync();
+
+    return Ok(sites);
+}
+
+
 
     // GET: api/Sites/{id}
     [HttpGet("{id}")]
@@ -93,4 +104,6 @@ public class SitesController : ControllerBase
     {
         return _context.Sites.Any(e => e.Id == id);
     }
+
+
 }

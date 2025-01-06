@@ -32,11 +32,29 @@ public partial class SearchPage : ContentPage
         }
     }
 
-    private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+{
+    try
     {
-        var employees = await _httpClient.GetFromJsonAsync<List<Employee>>($"Salaries/search?name={e.NewTextValue}");
-        EmployeeList.ItemsSource = employees;
+        if (string.IsNullOrWhiteSpace(e.NewTextValue))
+        {
+            // Si le champ est vide, recharger tous les employés
+            var employees = await _httpClient.GetFromJsonAsync<List<Employee>>("Salaries");
+            EmployeeList.ItemsSource = employees;
+        }
+        else
+        {
+            // Si le champ n'est pas vide, effectuer une recherche
+            var employees = await _httpClient.GetFromJsonAsync<List<Employee>>($"Salaries/search?name={e.NewTextValue}");
+            EmployeeList.ItemsSource = employees;
+        }
     }
+    catch (Exception ex)
+    {
+        await DisplayAlert("Erreur", $"Impossible de charger les données : {ex.Message}", "OK");
+    }
+}
+
 
     private async void OnSiteSelected(object sender, EventArgs e)
     {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.API\\AnnuaireEntreprise.API.csproj": {}
+    "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.API\\AnnuaireEntreprise.API.csproj": {}
   },
   "projects": {
-    "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.API\\AnnuaireEntreprise.API.csproj": {
+    "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.API\\AnnuaireEntreprise.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.API\\AnnuaireEntreprise.API.csproj",
+        "projectUniqueName": "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.API\\AnnuaireEntreprise.API.csproj",
         "projectName": "AnnuaireEntreprise.API",
-        "projectPath": "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.API\\AnnuaireEntreprise.API.csproj",
+        "projectPath": "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.API\\AnnuaireEntreprise.API.csproj",
         "packagesPath": "C:\\Users\\trigu\\.nuget\\packages\\",
-        "outputPath": "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.API\\obj\\",
+        "outputPath": "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

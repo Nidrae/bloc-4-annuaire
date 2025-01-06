@@ -15,25 +15,20 @@ public partial class ManageServicesPage : ContentPage
         LoadData();
     }
 
-    private async void LoadData()
+private async void LoadData()
+{
+    try
     {
-        if (isRequestInProgress) return;
-        isRequestInProgress = true;
-
-        try
-        {
-            var services = await _httpClient.GetFromJsonAsync<List<Service>>("Services");
-            ServicesList.ItemsSource = services;
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Erreur", $"Impossible de charger les services : {ex.Message}", "OK");
-        }
-        finally
-        {
-            isRequestInProgress = false;
-        }
+        var services = await _httpClient.GetFromJsonAsync<List<Service>>("Services");
+        ServicesList.ItemsSource = services;
     }
+    catch (Exception ex)
+    {
+        await DisplayAlert("Erreur", $"Impossible de charger les données : {ex.Message}", "OK");
+    }
+}
+
+
 
     private async void OnAddServiceClicked(object sender, EventArgs e)
     {
@@ -59,16 +54,20 @@ public partial class ManageServicesPage : ContentPage
             }
         }
     }
-
-    private async void OnDeleteServiceClicked(object sender, EventArgs e)
+private async void OnDeleteServiceClicked(object sender, EventArgs e)
+{
+    if (sender is Button button && button.BindingContext is Service service)
     {
-        if (sender is Button button && button.BindingContext is Service selectedService)
+        if (service.IsLinkedToEmployees)
         {
-            if (await DisplayAlert("Confirmation", $"Supprimer le service {selectedService.Nom} ?", "Oui", "Non"))
-            {
-                await _httpClient.DeleteAsync($"Services/{selectedService.Id}");
-                LoadData();
-            }
+            await DisplayAlert("Action impossible", "Ce service est lié à des salariés et ne peut pas être supprimé.", "OK");
+        }
+        else if (await DisplayAlert("Confirmation", $"Supprimer le service {service.Nom} ?", "Oui", "Non"))
+        {
+            await _httpClient.DeleteAsync($"Services/{service.Id}");
+            LoadData();
         }
     }
+}
+
 }

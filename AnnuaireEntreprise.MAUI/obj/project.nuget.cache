@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "si4w2RRwLXU=",
+  "dgSpecHash": "7IagxO9ZbH0=",
   "success": true,
-  "projectFilePath": "W:\\Visual Studio Project\\bloc 4 annuaire\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\AnnuaireEntreprise.MAUI.csproj",
+  "projectFilePath": "W:\\Visual Studio Project\\bloc 4 solo\\bloc-4-annuaire\\AnnuaireEntreprise.MAUI\\AnnuaireEntreprise.MAUI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\trigu\\.nuget\\packages\\googlegson\\2.10.1.4\\googlegson.2.10.1.4.nupkg.sha512",
     "C:\\Users\\trigu\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",

@@ -5,6 +5,11 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
+                        <!-- Bouton Ajouter -->
+            <Button
+                Text="Ajouter un salarié"
+                Clicked="OnAddEmployeeClicked"
+                HorizontalOptions="FillAndExpand" />
 
             <!-- Recherche par nom -->
             <Entry
@@ -82,13 +87,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-            <!-- Bouton Ajouter -->
-            <Button
-                Text="Ajouter un salarié"
-                Clicked="OnAddEmployeeClicked"
-                HorizontalOptions="FillAndExpand" />
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

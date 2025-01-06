@@ -17,6 +17,7 @@ public partial class ManageEmployeesPage : ContentPage
 
     public void RefreshEmployeeList()
     {
+        EmployeeList.ItemsSource = null;
         LoadData(); // Recharger les données
     }
 
@@ -49,25 +50,36 @@ public partial class ManageEmployeesPage : ContentPage
         }
     }
 
-    private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+{
+    if (isRequestInProgress) return; // Évite les appels multiples rapides
+
+    try
     {
-        if (isRequestInProgress) return; // Évite les appels multiples rapides
         isRequestInProgress = true;
 
-        try
+        if (string.IsNullOrWhiteSpace(e.NewTextValue))
         {
+            // Si le champ est vide, recharger tous les employés
+            var employees = await _httpClient.GetFromJsonAsync<List<Employee>>("Salaries");
+            EmployeeList.ItemsSource = employees;
+        }
+        else
+        {
+            // Si le champ n'est pas vide, effectuer une recherche
             var employees = await _httpClient.GetFromJsonAsync<List<Employee>>($"Salaries/search?name={e.NewTextValue}");
             EmployeeList.ItemsSource = employees;
         }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Erreur", $"Recherche impossible : {ex.Message}", "OK");
-        }
-        finally
-        {
-            isRequestInProgress = false;
-        }
     }
+    catch (Exception ex)
+    {
+        await DisplayAlert("Erreur", $"Recherche impossible : {ex.Message}", "OK");
+    }
+    finally
+    {
+        isRequestInProgress = false; // Réinitialiser l'indicateur
+    }
+}
 
     private async void OnSiteSelected(object sender, EventArgs e)
     {

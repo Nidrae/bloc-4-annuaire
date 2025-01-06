@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AnnuaireEntreprise.MAUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+a21542c826eb15d9fb1cb6fb68ee18a649cbeb7e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+a4709a054bdff6b43942a3634602905c1400485e")]
 [assembly: System.Reflection.AssemblyProductAttribute("AnnuaireEntreprise.MAUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AnnuaireEntreprise.MAUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
