@@ -25,16 +25,12 @@
                     <DataTemplate>
                         <Frame Padding="10" Margin="0,5">
                             <Grid ColumnDefinitions="*,Auto">
-                                <!-- Bloc Nom et Service -->
                                 <HorizontalStackLayout Grid.Column="0" Spacing="10">
-                                    <!-- Nom de l'employé -->
                                     <Label
                                         Text="{Binding Nom}"
                                         FontSize="18"
                                         VerticalOptions="Center"
                                         LineBreakMode="TailTruncation" />
-
-                                    <!-- Nom du service -->
                                     <Label
                                         Text="{Binding Service.Nom}"
                                         FontSize="14"
@@ -43,7 +39,6 @@
                                         LineBreakMode="TailTruncation" />
                                 </HorizontalStackLayout>
 
-                                <!-- Bouton Détails -->
                                 <Button
                                     Text="Détails"
                                     Clicked="OnDetailsButtonClicked"
@@ -56,6 +51,17 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Button
+                    x:Name="PreviousButton"
+                    Text="Précédent"
+                    Clicked="OnPreviousPageClicked" />
+                <Button
+                    x:Name="NextButton"
+                    Text="Suivant"
+                    Clicked="OnNextPageClicked" />
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

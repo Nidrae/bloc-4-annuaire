@@ -6,7 +6,9 @@ namespace AnnuaireEntreprise.MAUI.Views.Admin;
 public partial class ManageEmployeesPage : ContentPage
 {
     private readonly HttpClient _httpClient;
-    private bool isRequestInProgress = false;
+    private List<Employee> _allEmployees = new();
+    private int _currentPage = 1;
+    private const int PageSize = 10;
 
     public ManageEmployeesPage()
     {
@@ -15,123 +17,118 @@ public partial class ManageEmployeesPage : ContentPage
         LoadData();
     }
 
-    public void RefreshEmployeeList()
-    {
-        EmployeeList.ItemsSource = null;
-        LoadData(); // Recharger les données
-    }
-
     private async void LoadData()
     {
-        if (isRequestInProgress) return; // Évite d'exécuter la méthode si une requête est en cours
-
-        isRequestInProgress = true;
         try
         {
-            // Charger les salariés
-            var employees = await _httpClient.GetFromJsonAsync<List<Employee>>("Salaries");
-            EmployeeList.ItemsSource = employees;
-
             // Charger les sites et services
             var sites = await _httpClient.GetFromJsonAsync<List<Site>>("Sites");
             var services = await _httpClient.GetFromJsonAsync<List<Service>>("Services");
 
-            // Assigner les données aux Pickers
             SitePicker.ItemsSource = sites?.Select(s => s.Ville).ToList() ?? new List<string>();
             ServicePicker.ItemsSource = services?.Select(s => s.Nom).ToList() ?? new List<string>();
+
+            // Charger les employés par défaut
+            _allEmployees = await _httpClient.GetFromJsonAsync<List<Employee>>("Salaries");
+            _currentPage = 1;
+            UpdatePagination();
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Erreur", $"Échec du chargement des données : {ex.Message}", "OK");
+        }
+    }
+
+    private void UpdatePagination()
+    {
+        var employeesToShow = _allEmployees
+            .Skip((_currentPage - 1) * PageSize)
+            .Take(PageSize)
+            .ToList();
+
+        EmployeeList.ItemsSource = employeesToShow;
+
+        PreviousButton.IsEnabled = _currentPage > 1;
+        NextButton.IsEnabled = _currentPage < (_allEmployees.Count + PageSize - 1) / PageSize;
+    }
+
+    private void OnNextPageClicked(object sender, EventArgs e)
+    {
+        if (_currentPage < (_allEmployees.Count + PageSize - 1) / PageSize)
+        {
+            _currentPage++;
+            UpdatePagination();
+        }
+    }
+
+    private void OnPreviousPageClicked(object sender, EventArgs e)
+    {
+        if (_currentPage > 1)
+        {
+            _currentPage--;
+            UpdatePagination();
+        }
+    }
+
+    private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(e.NewTextValue))
+            {
+                _allEmployees = await _httpClient.GetFromJsonAsync<List<Employee>>("Salaries");
+            }
+            else
+            {
+                _allEmployees = await _httpClient.GetFromJsonAsync<List<Employee>>($"Salaries/search?name={e.NewTextValue}");
+            }
+
+            _currentPage = 1;
+            UpdatePagination();
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Erreur", $"Impossible de rechercher : {ex.Message}", "OK");
+        }
+    }
+
+    private async void OnSiteSelected(object sender, EventArgs e)
+    {
+        if (SitePicker.SelectedIndex == -1) return;
+
+        try
+        {
+            var siteId = SitePicker.SelectedIndex + 1; // Assumes Picker index matches database ID
+            _allEmployees = await _httpClient.GetFromJsonAsync<List<Employee>>($"Salaries/by-site/{siteId}");
+            _currentPage = 1;
+            UpdatePagination();
         }
         catch (Exception ex)
         {
             await DisplayAlert("Erreur", $"Impossible de charger les données : {ex.Message}", "OK");
         }
-        finally
-        {
-            isRequestInProgress = false;
-        }
-    }
-
-private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
-{
-    if (isRequestInProgress) return; // Évite les appels multiples rapides
-
-    try
-    {
-        isRequestInProgress = true;
-
-        if (string.IsNullOrWhiteSpace(e.NewTextValue))
-        {
-            // Si le champ est vide, recharger tous les employés
-            var employees = await _httpClient.GetFromJsonAsync<List<Employee>>("Salaries");
-            EmployeeList.ItemsSource = employees;
-        }
-        else
-        {
-            // Si le champ n'est pas vide, effectuer une recherche
-            var employees = await _httpClient.GetFromJsonAsync<List<Employee>>($"Salaries/search?name={e.NewTextValue}");
-            EmployeeList.ItemsSource = employees;
-        }
-    }
-    catch (Exception ex)
-    {
-        await DisplayAlert("Erreur", $"Recherche impossible : {ex.Message}", "OK");
-    }
-    finally
-    {
-        isRequestInProgress = false; // Réinitialiser l'indicateur
-    }
-}
-
-    private async void OnSiteSelected(object sender, EventArgs e)
-    {
-        if (isRequestInProgress || SitePicker.SelectedIndex == -1) return;
-        isRequestInProgress = true;
-
-        try
-        {
-            var selectedSite = SitePicker.SelectedItem as string;
-            var employees = await _httpClient.GetFromJsonAsync<List<Employee>>("Salaries");
-
-            EmployeeList.ItemsSource = employees
-                .Where(emp => emp.Site != null && emp.Site.Ville == selectedSite)
-                .ToList();
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Erreur", $"Erreur de chargement : {ex.Message}", "OK");
-        }
-        finally
-        {
-            isRequestInProgress = false;
-        }
     }
 
     private async void OnServiceSelected(object sender, EventArgs e)
     {
-        if (isRequestInProgress || ServicePicker.SelectedIndex == -1) return;
-        isRequestInProgress = true;
+        if (ServicePicker.SelectedIndex == -1) return;
 
         try
         {
-            var selectedService = ServicePicker.SelectedItem as string;
-            var employees = await _httpClient.GetFromJsonAsync<List<Employee>>("Salaries");
-
-            EmployeeList.ItemsSource = employees
-                .Where(emp => emp.Service != null && emp.Service.Nom == selectedService)
-                .ToList();
+            var serviceId = ServicePicker.SelectedIndex + 1; // Assumes Picker index matches database ID
+            _allEmployees = await _httpClient.GetFromJsonAsync<List<Employee>>($"Salaries/by-service/{serviceId}");
+            _currentPage = 1;
+            UpdatePagination();
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Erreur", $"Erreur de chargement : {ex.Message}", "OK");
-        }
-        finally
-        {
-            isRequestInProgress = false;
+            await DisplayAlert("Erreur", $"Impossible de charger les données : {ex.Message}", "OK");
         }
     }
 
-       private async void OnEditEmployeeClicked(object sender, EventArgs e)
+    private async void OnEditEmployeeClicked(object sender, EventArgs e)
     {
-        if (sender is Button button && button.BindingContext is Employee selectedEmployee)
+        if (sender is Button button && button.CommandParameter is Employee selectedEmployee)
         {
             await Navigation.PushAsync(new AddEditEmployeePage(selectedEmployee));
         }
@@ -141,18 +138,26 @@ private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
         }
     }
 
-        private async void OnDeleteEmployeeClicked(object sender, EventArgs e)
+    private async void OnDeleteEmployeeClicked(object sender, EventArgs e)
     {
-        var employee = (sender as Button)?.BindingContext as Employee;
+        var employee = (sender as Button)?.CommandParameter as Employee;
         if (employee != null && await DisplayAlert("Confirmation", $"Supprimer le salarié {employee.Nom} {employee.Prenom} ?", "Oui", "Non"))
         {
             await _httpClient.DeleteAsync($"Salaries/{employee.Id}");
-            RefreshEmployeeList(); // Recharger la liste des salariés après suppression
+            _allEmployees.Remove(employee);
+            UpdatePagination();
         }
     }
 
-     private async void OnAddEmployeeClicked(object sender, EventArgs e)
+    private async void OnAddEmployeeClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AddEditEmployeePage());
+    }
+
+    public void RefreshEmployeeList()
 {
-    await Navigation.PushAsync(new AddEditEmployeePage());
+    _currentPage = 1; // Réinitialiser à la première page
+    UpdatePagination(); // Actualiser l'affichage avec la pagination
 }
+
 }

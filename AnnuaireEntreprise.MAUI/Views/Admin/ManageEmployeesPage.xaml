@@ -5,7 +5,7 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-                        <!-- Bouton Ajouter -->
+            <!-- Bouton Ajouter -->
             <Button
                 Text="Ajouter un salarié"
                 Clicked="OnAddEmployeeClicked"
@@ -13,9 +13,10 @@
 
             <!-- Recherche par nom -->
             <Entry
-                Placeholder="Rechercher par nom"
+               Placeholder="Rechercher par nom"
                 x:Name="SearchEntry"
-                TextChanged="OnSearchTextChanged" />
+               TextChanged="OnSearchTextChanged" />
+
 
             <!-- Filtrer par site -->
             <Picker
@@ -37,56 +38,26 @@
                             <Grid ColumnDefinitions="*,Auto">
                                 <!-- Bloc Nom, Service et Site -->
                                 <HorizontalStackLayout Grid.Column="0" Spacing="10">
-                                    <!-- Nom de l'employé -->
-                                    <Label
-                                        Text="{Binding Nom}"
-                                        FontSize="18"
-                                        VerticalOptions="Center"
-                                        LineBreakMode="TailTruncation" />
-
-                                    <!-- Nom du service -->
-                                    <Label
-                                        Text="{Binding Service.Nom}"
-                                        FontSize="14"
-                                        VerticalOptions="Center"
-                                        TextColor="Gray"
-                                        LineBreakMode="TailTruncation" />
-
-                                    <!-- Nom du site -->
-                                    <Label
-                                        Text="{Binding Site.Ville}"
-                                        FontSize="14"
-                                        VerticalOptions="Center"
-                                        TextColor="Blue"
-                                        LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding Nom}" FontSize="18" VerticalOptions="Center" />
+                                    <Label Text="{Binding Service.Nom}" FontSize="14" VerticalOptions="Center" TextColor="Gray" />
+                                    <Label Text="{Binding Site.Ville}" FontSize="14" VerticalOptions="Center" TextColor="Blue" />
                                 </HorizontalStackLayout>
-
-                                <!-- Boutons Modifier et Supprimer -->
                                 <HorizontalStackLayout Grid.Column="1" Spacing="5">
-    <Button
-        Text="Modif"
-        Clicked="OnEditEmployeeClicked"
-        CommandParameter="{Binding}"
-        VerticalOptions="Center"
-        WidthRequest="65"
-        HeightRequest="40"
-        FontSize="12" />
-
-    <Button
-        Text="Supr"
-        Clicked="OnDeleteEmployeeClicked"
-        CommandParameter="{Binding}"
-        VerticalOptions="Center"
-        WidthRequest="65"
-        HeightRequest="40"
-        FontSize="12" />
-</HorizontalStackLayout>
-
+                                    <Button Text="Modif" Clicked="OnEditEmployeeClicked" CommandParameter="{Binding}" />
+                                    <Button Text="Supr" Clicked="OnDeleteEmployeeClicked" CommandParameter="{Binding}" />
+                                </HorizontalStackLayout>
                             </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <!-- Boutons de pagination -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Button x:Name="PreviousButton" Text="Précédent" Clicked="OnPreviousPageClicked" />
+                <Button x:Name="NextButton" Text="Suivant" Clicked="OnNextPageClicked" />
+
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
