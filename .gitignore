@@ -1,0 +1,33 @@
+# Exclude bin and obj directories
+bin/
+obj/
+
+# Visual Studio specific
+.vscode/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.userprefs
+
+# Build results
+*.exe
+*.dll
+*.pdb
+*.app
+*.ipa
+*.dylib
+*.so
+*.a
+*.lib
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+*.log
+*.tmp
+
+# IDE specific
+.idea/
