@@ -1,1 +1,0 @@
-W:\Visual Studio Project\bloc 4 annuaire\bloc-4-annuaire\AnnuaireEntreprise.MAUI\AnnuaireEntreprise.MAUI.csproj;x64
