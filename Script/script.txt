@@ -1,0 +1,36 @@
+CREATE DATABASE `annuaireentreprise` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci */;
+
+-- annuaireentreprise.salaries definition
+
+CREATE TABLE `salaries` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Nom` varchar(100) NOT NULL,
+  `Prenom` varchar(100) NOT NULL,
+  `TelFixe` varchar(15) DEFAULT NULL,
+  `TelPortable` varchar(15) DEFAULT NULL,
+  `Email` varchar(255) NOT NULL,
+  `ServiceId` int(11) NOT NULL,
+  `SiteId` int(11) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `Email` (`Email`),
+  KEY `ServiceId` (`ServiceId`),
+  KEY `SiteId` (`SiteId`),
+  CONSTRAINT `salaries_ibfk_1` FOREIGN KEY (`ServiceId`) REFERENCES `services` (`Id`) ON DELETE CASCADE,
+  CONSTRAINT `salaries_ibfk_2` FOREIGN KEY (`SiteId`) REFERENCES `sites` (`Id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2083 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- annuaireentreprise.services definition
+
+CREATE TABLE `services` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Nom` varchar(100) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- annuaireentreprise.sites definition
+
+CREATE TABLE `sites` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Ville` varchar(50) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
