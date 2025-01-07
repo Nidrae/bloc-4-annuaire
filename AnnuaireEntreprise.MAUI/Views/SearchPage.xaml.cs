@@ -16,21 +16,31 @@ public partial class SearchPage : ContentPage
         LoadData();
     }
 
-    private async void LoadData()
+private async void LoadData()
+{
+    try
     {
-        try
-        {
-            var sites = await _httpClient.GetFromJsonAsync<List<Site>>("Sites");
-            var services = await _httpClient.GetFromJsonAsync<List<Service>>("Services");
+        var sites = await _httpClient.GetFromJsonAsync<List<Site>>("Sites");
+        var services = await _httpClient.GetFromJsonAsync<List<Service>>("Services");
 
-            SitePicker.ItemsSource = sites.Select(s => s.Ville).ToList();
-            ServicePicker.ItemsSource = services.Select(s => s.Nom).ToList();
-        }
-        catch (Exception ex)
+        if (sites != null)
         {
-            await DisplayAlert("Error", $"Failed to load data: {ex.Message}", "OK");
+            SitePicker.ItemsSource = sites;
+            SitePicker.ItemDisplayBinding = new Binding("Ville"); // Affiche uniquement la ville
+        }
+
+        if (services != null)
+        {
+            ServicePicker.ItemsSource = services;
+            ServicePicker.ItemDisplayBinding = new Binding("Nom"); // Affiche uniquement le nom
         }
     }
+    catch (Exception ex)
+    {
+        await DisplayAlert("Erreur", $"Échec du chargement des données : {ex.Message}", "OK");
+    }
+}
+
 
 private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
 {
@@ -56,38 +66,52 @@ private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
 }
 
 
-    private async void OnSiteSelected(object sender, EventArgs e)
-    {
-        if (SitePicker.SelectedIndex == -1) return;
 
-        var siteId = SitePicker.SelectedIndex + 1; // Assumes Picker index matches database ID
-        var employees = await _httpClient.GetFromJsonAsync<List<Employee>>($"Salaries/by-site/{siteId}");
-        EmployeeList.ItemsSource = employees;
-    }
 
-    private async void OnServiceSelected(object sender, EventArgs e)
-    {
-        if (ServicePicker.SelectedIndex == -1) return;
-
-        var serviceId = ServicePicker.SelectedIndex + 1; // Assumes Picker index matches database ID
-        var employees = await _httpClient.GetFromJsonAsync<List<Employee>>($"Salaries/by-service/{serviceId}");
-        EmployeeList.ItemsSource = employees;
-    }
-
-private async void OnEmployeeSelected(object sender, SelectedItemChangedEventArgs e)
+private async void OnSiteSelected(object sender, EventArgs e)
 {
-    if (e.SelectedItem == null) return;
-
-    var selectedEmployee = e.SelectedItem as Employee;
-
-    if (selectedEmployee != null)
+    if (SitePicker.SelectedItem is Site selectedSite)
     {
-        await Navigation.PushAsync(new EmployeeDetailsPage(selectedEmployee));
-    }
+        var url = $"Salaries/by-site/{selectedSite.Id}";
+        Console.WriteLine($"URL appelée : {url}"); // Log de l'URL
 
-    // Déselectionne l'élément après navigation
-    ((ListView)sender).SelectedItem = null;
+        try
+        {
+            var employees = await _httpClient.GetFromJsonAsync<List<Employee>>(url);
+            Console.WriteLine($"Résultats reçus : {employees?.Count ?? 0}");
+            EmployeeList.ItemsSource = employees;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erreur lors de l'appel à l'API : {ex.Message}");
+            await DisplayAlert("Erreur", $"Impossible de charger les données : {ex.Message}", "OK");
+        }
+    }
 }
+
+
+
+private async void OnServiceSelected(object sender, EventArgs e)
+{
+    if (ServicePicker.SelectedItem is Service selectedService)
+    {
+        var url = $"Salaries/by-service/{selectedService.Id}";
+        Console.WriteLine($"URL appelée : {url}"); // Log de l'URL
+
+        try
+        {
+            var employees = await _httpClient.GetFromJsonAsync<List<Employee>>(url);
+            Console.WriteLine($"Résultats reçus : {employees?.Count ?? 0}");
+            EmployeeList.ItemsSource = employees;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erreur lors de l'appel à l'API : {ex.Message}");
+            await DisplayAlert("Erreur", $"Impossible de charger les données : {ex.Message}", "OK");
+        }
+    }
+}
+
 
 private async void OnDetailsButtonClicked(object sender, EventArgs e)
 {
