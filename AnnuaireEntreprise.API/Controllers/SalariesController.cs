@@ -40,26 +40,26 @@ public class SalariesController : ControllerBase
     }
 
     // POST: api/Salaries
-// POST: api/Salaries
-[HttpPost]
-public async Task<ActionResult<Salarie>> CreateSalarie(Salarie salarie)
-{
-    // Forcer l'ID à 0 pour permettre à la base de données de gérer l'auto-incrémentation
-    salarie.Id = 0;
-
-    _context.Salaries.Add(salarie);
-
-    try
+    // POST: api/Salaries
+    [HttpPost]
+    public async Task<ActionResult<Salarie>> CreateSalarie(Salarie salarie)
     {
-        await _context.SaveChangesAsync();
-    }
-    catch (Exception ex)
-    {
-        return BadRequest(new { Message = $"Erreur lors de l'enregistrement : {ex.Message}" });
-    }
+        // Forcer l'ID à 0 pour permettre à la base de données de gérer l'auto-incrémentation
+        salarie.Id = 0;
 
-    return CreatedAtAction(nameof(GetSalarie), new { id = salarie.Id }, salarie);
-}
+        _context.Salaries.Add(salarie);
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { Message = $"Erreur lors de l'enregistrement : {ex.Message}" });
+        }
+
+        return CreatedAtAction(nameof(GetSalarie), new { id = salarie.Id }, salarie);
+    }
 
 
     // PUT: api/Salaries/{id}
@@ -111,54 +111,54 @@ public async Task<ActionResult<Salarie>> CreateSalarie(Salarie salarie)
     }
 
     // GET: api/Salaries/search?name=Durand
-[HttpGet("search")]
-public async Task<ActionResult<IEnumerable<Salarie>>> SearchByName([FromQuery] string name)
-{
-    var results = await _context.Salaries
-                                .Include(s => s.Site)
-                                .Include(s => s.Service)
-                                .Where(s => s.Nom.Contains(name))
-                                .ToListAsync();
-
-
-
-    return Ok(results);
-}
-// GET: api/Salaries/by-site/{siteId}
-[HttpGet("by-site/{siteId}")]
-public async Task<ActionResult<IEnumerable<Salarie>>> GetBySite(int siteId)
-{
-    var results = await _context.Salaries
-                                .Include(s => s.Site)
-                                .Include(s => s.Service)
-                                .Where(s => s.SiteId == siteId)
-                                .ToListAsync();
-
-    if (!results.Any())
+    [HttpGet("search")]
+    public async Task<ActionResult<IEnumerable<Salarie>>> SearchByName([FromQuery] string name)
     {
-        return NotFound(new { Message = $"Aucun salarié trouvé pour le site ID {siteId}." });
+        var results = await _context.Salaries
+                                    .Include(s => s.Site)
+                                    .Include(s => s.Service)
+                                    .Where(s => s.Nom.Contains(name))
+                                    .ToListAsync();
+
+
+
+        return Ok(results);
+    }
+    // GET: api/Salaries/by-site/{siteId}
+    [HttpGet("by-site/{siteId}")]
+    public async Task<ActionResult<IEnumerable<Salarie>>> GetBySite(int siteId)
+    {
+        var results = await _context.Salaries
+                                    .Include(s => s.Site)
+                                    .Include(s => s.Service)
+                                    .Where(s => s.SiteId == siteId)
+                                    .ToListAsync();
+
+        if (!results.Any())
+        {
+            return NotFound(new { Message = $"Aucun salarié trouvé pour le site ID {siteId}." });
+        }
+
+        return Ok(results);
     }
 
-    return Ok(results);
-}
-
-// GET: api/Salaries/by-service/{serviceId}
-[HttpGet("by-service/{serviceId}")]
-public async Task<ActionResult<IEnumerable<Salarie>>> GetByService(int serviceId)
-{
-    var results = await _context.Salaries
-                                .Include(s => s.Site)
-                                .Include(s => s.Service)
-                                .Where(s => s.ServiceId == serviceId)
-                                .ToListAsync();
-
-    if (!results.Any())
+    // GET: api/Salaries/by-service/{serviceId}
+    [HttpGet("by-service/{serviceId}")]
+    public async Task<ActionResult<IEnumerable<Salarie>>> GetByService(int serviceId)
     {
-        return NotFound(new { Message = $"Aucun salarié trouvé pour le service ID {serviceId}." });
-    }
+        var results = await _context.Salaries
+                                    .Include(s => s.Site)
+                                    .Include(s => s.Service)
+                                    .Where(s => s.ServiceId == serviceId)
+                                    .ToListAsync();
 
-    return Ok(results);
-}
+        if (!results.Any())
+        {
+            return NotFound(new { Message = $"Aucun salarié trouvé pour le service ID {serviceId}." });
+        }
+
+        return Ok(results);
+    }
 
 
 

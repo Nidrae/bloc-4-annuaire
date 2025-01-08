@@ -17,42 +17,42 @@ public class ServicesController : ControllerBase
     }
 
     // GET: api/Services
-[HttpGet]
-public async Task<ActionResult<IEnumerable<Service>>> GetServices()
-{
-    var services = await _context.Services
-        .Select(service => new Service
-        {
-            Id = service.Id,
-            Nom = service.Nom,
-            IsLinkedToEmployees = _context.Salaries.Any(emp => emp.ServiceId == service.Id) // Calcul dynamique
-        })
-        .ToListAsync();
-
-    return Ok(services);
-}
-
-
-[HttpGet("{id}")]
-public async Task<ActionResult<Service>> GetService(int id)
-{
-    var service = await _context.Services
-        .Where(s => s.Id == id)
-        .Select(s => new Service
-        {
-            Id = s.Id,
-            Nom = s.Nom,
-            IsLinkedToEmployees = _context.Salaries.Any(emp => emp.ServiceId == s.Id) // Calcul dynamique
-        })
-        .FirstOrDefaultAsync();
-
-    if (service == null)
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Service>>> GetServices()
     {
-        return NotFound(new { Message = $"Le service avec l'ID {id} n'existe pas." });
+        var services = await _context.Services
+            .Select(service => new Service
+            {
+                Id = service.Id,
+                Nom = service.Nom,
+                IsLinkedToEmployees = _context.Salaries.Any(emp => emp.ServiceId == service.Id) // Calcul dynamique
+            })
+            .ToListAsync();
+
+        return Ok(services);
     }
 
-    return Ok(service);
-}
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Service>> GetService(int id)
+    {
+        var service = await _context.Services
+            .Where(s => s.Id == id)
+            .Select(s => new Service
+            {
+                Id = s.Id,
+                Nom = s.Nom,
+                IsLinkedToEmployees = _context.Salaries.Any(emp => emp.ServiceId == s.Id) // Calcul dynamique
+            })
+            .FirstOrDefaultAsync();
+
+        if (service == null)
+        {
+            return NotFound(new { Message = $"Le service avec l'ID {id} n'existe pas." });
+        }
+
+        return Ok(service);
+    }
 
 
     // POST: api/Services

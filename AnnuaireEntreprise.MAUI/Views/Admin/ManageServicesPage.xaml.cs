@@ -15,18 +15,18 @@ public partial class ManageServicesPage : ContentPage
         LoadData();
     }
 
-private async void LoadData()
-{
-    try
+    private async void LoadData()
     {
-        var services = await _httpClient.GetFromJsonAsync<List<Service>>("Services");
-        ServicesList.ItemsSource = services;
+        try
+        {
+            var services = await _httpClient.GetFromJsonAsync<List<Service>>("Services");
+            ServicesList.ItemsSource = services;
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Erreur", $"Impossible de charger les données : {ex.Message}", "OK");
+        }
     }
-    catch (Exception ex)
-    {
-        await DisplayAlert("Erreur", $"Impossible de charger les données : {ex.Message}", "OK");
-    }
-}
 
 
 
@@ -54,20 +54,20 @@ private async void LoadData()
             }
         }
     }
-private async void OnDeleteServiceClicked(object sender, EventArgs e)
-{
-    if (sender is Button button && button.BindingContext is Service service)
+    private async void OnDeleteServiceClicked(object sender, EventArgs e)
     {
-        if (service.IsLinkedToEmployees)
+        if (sender is Button button && button.BindingContext is Service service)
         {
-            await DisplayAlert("Action impossible", "Ce service est lié à des salariés et ne peut pas être supprimé.", "OK");
-        }
-        else if (await DisplayAlert("Confirmation", $"Supprimer le service {service.Nom} ?", "Oui", "Non"))
-        {
-            await _httpClient.DeleteAsync($"Services/{service.Id}");
-            LoadData();
+            if (service.IsLinkedToEmployees)
+            {
+                await DisplayAlert("Action impossible", "Ce service est lié à des salariés et ne peut pas être supprimé.", "OK");
+            }
+            else if (await DisplayAlert("Confirmation", $"Supprimer le service {service.Nom} ?", "Oui", "Non"))
+            {
+                await _httpClient.DeleteAsync($"Services/{service.Id}");
+                LoadData();
+            }
         }
     }
-}
 
 }

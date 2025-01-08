@@ -155,9 +155,9 @@ public partial class ManageEmployeesPage : ContentPage
     }
 
     public void RefreshEmployeeList()
-{
-    _currentPage = 1; // Réinitialiser à la première page
-    UpdatePagination(); // Actualiser l'affichage avec la pagination
-}
+    {
+        _currentPage = 1; // Réinitialiser à la première page
+        UpdatePagination(); // Actualiser l'affichage avec la pagination
+    }
 
 }

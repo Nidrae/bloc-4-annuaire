@@ -4,26 +4,26 @@ namespace AnnuaireEntreprise.MAUI;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+    int count = 0;
 
-	public MainPage()
-	{
-		InitializeComponent();
-		var clickGestureRecognizer = new TapGestureRecognizer();
+    public MainPage()
+    {
+        InitializeComponent();
+        var clickGestureRecognizer = new TapGestureRecognizer();
         clickGestureRecognizer.Tapped += OnImageTapped;
         AdminTriggerImage.GestureRecognizers.Add(clickGestureRecognizer);
-	}
+    }
 
 
-private async void OnSearchButtonClicked(object sender, EventArgs e)
-{
-    await Navigation.PushAsync(new Views.SearchPage());
-}
+    private async void OnSearchButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new Views.SearchPage());
+    }
 
 
 
- // Gestion des clics sur l'image
-private int _adminClickCount = 0; // Compteur de clics
+    // Gestion des clics sur l'image
+    private int _adminClickCount = 0; // Compteur de clics
 
     private void OnImageTapped(object sender, EventArgs e)
     {
@@ -49,6 +49,6 @@ private int _adminClickCount = 0; // Compteur de clics
         }
     }
 
-    
+
 }
 
